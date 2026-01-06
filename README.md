@@ -1,6 +1,6 @@
 # Product Catalog - Flutter Testing Challenge
 
-This is a Flutter testing challenge project designed to evaluate candidates for mobile Flutter developer positions. The project contains **5 intentional runtime bugs** that candidates must identify, diagnose, and fix.
+This is a Flutter testing challenge project designed to evaluate candidates for mobile Flutter developer positions. The project contains runtime bugs that candidates must identify, diagnose, and fix.
 
 ## Prerequisites
 
@@ -119,33 +119,6 @@ Your task is to ensure the application meets the following acceptance criteria. 
 
 ---
 
-## How to Approach This Challenge
-
-### Step 1: Explore the App
-- Run the app and navigate through all screens
-- Test the favorite functionality
-- Try different screen sizes
-- Monitor the debug console for errors and warnings
-
-### Step 2: Use Debugging Tools
-- **Dart DevTools:** Memory profiler, widget inspector, network tab
-- **Flutter Inspector:** Check widget tree and properties
-- **Debug Console:** Look for error messages and stack traces
-- **Hot Reload vs Hot Restart:** Observe differences in behavior
-
-### Step 3: Test Each Scenario
-- Full user flow: Home → Detail → Toggle Favorite → Back → Home
-- Resize the emulator/window to test different screen sizes
-- Toggle favorites multiple times
-- Navigate back and forth between screens
-- Monitor memory usage over time
-
-### Step 4: Document and Fix
-- Identify the root cause of each issue
-- Apply proper Flutter best practices
-- Test your fixes thoroughly
-- Ensure each point meets the expected behavior
-
 ## Evaluation Criteria
 
 You will be evaluated on:
@@ -156,4 +129,4 @@ You will be evaluated on:
 
 ---
 
-**Goodspeed! Focus on one issue at a time and trust your debugging skills.**
+**Goodspeed! Focus on one issue at a time.**
