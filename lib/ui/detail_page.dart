@@ -15,19 +15,13 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  late ProductCubit _productCubit;
-
-  @override
-  void initState() {
-    super.initState();
-    _productCubit = ProductCubitProvider.of(context);
-    _productCubit.loadProducts();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final productCubit = ProductCubitProvider.of(context);
+    productCubit.loadProducts();
+
     return ListBuilder<ProductCubit>(
-      cubit: _productCubit,
+      cubit: productCubit,
       builder: (context, state) {
         if (state is ProductLoaded) {
           final product = state.products.firstWhere(
@@ -86,7 +80,7 @@ class _DetailPageState extends State<DetailPage> {
                   Center(
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        _productCubit.toggleFavorite(product);
+                        productCubit.toggleFavorite(product);
                       },
                       icon: Icon(
                         product.isFavorite
