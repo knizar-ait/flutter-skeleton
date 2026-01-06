@@ -1,0 +1,171 @@
+import 'package:flutter/material.dart';
+
+import '../cubit/product_cubit.dart';
+import '../cubit/product_state.dart';
+import '../data/product.dart';
+
+class DetailPage extends StatefulWidget {
+  final Product product;
+
+  const DetailPage({super.key, required this.product});
+
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  late ProductCubit _productCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _productCubit = ProductCubitProvider.of(context);
+    _productCubit.loadProducts();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListBuilder<ProductCubit>(
+      cubit: _productCubit,
+      builder: (context, state) {
+        if (state is ProductLoaded) {
+          final product = state.products.firstWhere(
+            (p) => p.id == widget.product.id,
+            orElse: () => widget.product,
+          );
+
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(product.name),
+              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Container(
+                      width: 200,
+                      height: 200,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(
+                        Icons.image,
+                        size: 100,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    product.name,
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '\$${product.price.toStringAsFixed(2)}',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.green[700],
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    product.description,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 32),
+                  Center(
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        _productCubit.toggleFavorite(product);
+                      },
+                      icon: Icon(
+                        product.isFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: product.isFavorite ? Colors.red : null,
+                      ),
+                      label: Text(
+                        product.isFavorite
+                            ? 'Remove from Favorites'
+                            : 'Add to Favorites',
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 32,
+                          vertical: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+        return const Center(child: CircularProgressIndicator());
+      },
+    );
+  }
+}
+
+class ProductCubitProvider extends InheritedWidget {
+  final ProductCubit cubit;
+
+  const ProductCubitProvider({
+    super.key,
+    required this.cubit,
+    required Widget child,
+  }) : super(child: child);
+
+  static ProductCubit of(BuildContext context) {
+    final ProductCubitProvider? provider = context
+        .dependOnInheritedWidgetOfExactType<ProductCubitProvider>();
+    return provider!.cubit;
+  }
+
+  @override
+  bool updateShouldNotify(ProductCubitProvider oldWidget) =>
+      cubit != oldWidget.cubit;
+}
+
+class ListBuilder<T extends Listenable> extends StatefulWidget {
+  final T cubit;
+  final Widget Function(BuildContext, ProductState) builder;
+
+  const ListBuilder({super.key, required this.cubit, required this.builder});
+
+  @override
+  State<ListBuilder<T>> createState() => _ListBuilderState<T>();
+}
+
+class _ListBuilderState<T extends Listenable> extends State<ListBuilder<T>> {
+  @override
+  void initState() {
+    super.initState();
+    widget.cubit.addListener(_listener);
+  }
+
+  @override
+  void dispose() {
+    widget.cubit.removeListener(_listener);
+    super.dispose();
+  }
+
+  void _listener() {
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.builder(context, (widget.cubit as ProductCubit).state);
+  }
+}
