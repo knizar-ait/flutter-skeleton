@@ -56,20 +56,20 @@ flutter run --verbose
 ## Screenshots
 
 ### Home Screen
-Product list displaying all available products
 <img src="docs/home.png" alt="Home Screen" width="300"/>
+Product list displaying all available products
 
 ### Detail Screen
-Product detail view with full information and favorite button
 <img src="docs/detail.png" alt="Detail Screen" width="300"/>
+Product detail view with full information and favorite button
 
 ### Favorite Toggle - Step 1
-Clicking the favorite button on a product
 <img src="docs/fav_1.png" alt="Favorite Toggle Step 1" width="300"/>
+Clicking the favorite button on a product
 
 ### Favorite Toggle - Step 2
-Favorite status updated and reflected in the UI
 <img src="docs/fav_2.png" alt="Favorite Toggle Step 2" width="300"/>
+Favorite status updated and reflected in the UI
 
 ## Definition of Done
 
