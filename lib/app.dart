@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'cubit/product_cubit.dart';
+import 'cubit/product_cubit_provider.dart';
 import 'data/product_repository.dart';
 import 'ui/home_page.dart';
 
@@ -35,23 +36,4 @@ class _ProductCatalogAppState extends State<ProductCatalogApp> {
       ),
     );
   }
-}
-
-class ProductCubitProvider extends InheritedWidget {
-  final ProductCubit cubit;
-
-  const ProductCubitProvider({
-    super.key,
-    required this.cubit,
-    required Widget child,
-  }) : super(child: child);
-
-  static ProductCubit of(BuildContext context) {
-    final ProductCubitProvider? provider =
-        context.dependOnInheritedWidgetOfExactType<ProductCubitProvider>();
-    return provider!.cubit;
-  }
-
-  @override
-  bool updateShouldNotify(ProductCubitProvider oldWidget) => cubit != oldWidget.cubit;
 }
