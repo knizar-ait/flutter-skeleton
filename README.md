@@ -80,7 +80,7 @@ Your task is to ensure the application meets the following acceptance criteria. 
 - State management object is created but never properly disposed
 - Look for lifecycle methods in the app initialization file
   
-- **Expected Behavior:**
+**Expected Behavior:**
 - App properly manages and cleans up resources during lifecycle
 - No memory leaks or resource warnings
 - App can be started and stopped without issues
