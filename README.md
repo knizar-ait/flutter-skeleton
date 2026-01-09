@@ -76,7 +76,11 @@ Favorite status updated and reflected in the UI
 Your task is to ensure the application meets the following acceptance criteria. Test each scenario and fix any issues you encounter.
 
 ### 1. Resource Management
-**Expected Behavior:**
+**Issue:**
+- State management object is created but never properly disposed
+- Look for lifecycle methods in the app initialization file
+  
+- **Expected Behavior:**
 - App properly manages and cleans up resources during lifecycle
 - No memory leaks or resource warnings
 - App can be started and stopped without issues
@@ -84,6 +88,11 @@ Your task is to ensure the application meets the following acceptance criteria. 
 ---
 
 ### 2. Favorite Functionality
+**Issue:**
+- State changes occur but UI doesn't rebuild to reflect changes
+- Check how state equality is determined in state classes, in ProductLoaded state
+- Related to how Flutter detects when to rebuild widgets
+
 **Expected Behavior:**
 - User can click favorite button without any issues
 - Favorite icon updates immediately to reflect current state (filled heart when favorited, outline when not)
@@ -93,6 +102,11 @@ Your task is to ensure the application meets the following acceptance criteria. 
 ---
 
 ### 3. Screen Display
+**Issue:**
+- Layout overflow warnings appear on smaller screens (yellow/black stripes)
+- ListView tries to take infinite height inside a Column
+- Check the Column children structure in home page - ListView
+
 **Expected Behavior:**
 - Product list screen displays correctly on all screen sizes
 - No overflow warnings or visual glitches
@@ -102,6 +116,10 @@ Your task is to ensure the application meets the following acceptance criteria. 
 ---
 
 ### 4. Navigation Performance
+**Issue:**
+- Detail page triggers unnecessary data reloading on every navigation
+- 1-second delay occurs when opening product details due to ineffective API call
+
 **Expected Behavior:**
 - Navigating to product detail screen is smooth and instant
 - No unnecessary loading delays when opening product details
@@ -111,6 +129,11 @@ Your task is to ensure the application meets the following acceptance criteria. 
 ---
 
 ### 5. State Consistency
+**Issue:**
+- State is being mutated directly instead of creating new instances
+- Violates Flutter's immutability principles 
+- Combined with the state equality issue, causes UI Favorites not to update properly
+
 **Expected Behavior:**
 - User actions (like toggling favorites) reflect immediately in the UI
 - Data remains consistent across screen navigation
